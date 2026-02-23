@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Bubu 💖</title>
+
+<style>
+body{
+  margin:0;
+  padding:0;
+  font-family:'Comic Sans MS', cursive;
+  background:linear-gradient(45deg,#ff9ccf,#ffcce6);
+  overflow:hidden;
+  text-align:center;
+  animation:bgGlow 6s ease-in-out infinite alternate;
+}
+
+@keyframes bgGlow{
+  0%{background:linear-gradient(45deg,#ff9ccf,#ffcce6);}
+  100%{background:linear-gradient(45deg,#ff7eb3,#ffb3d9);}
+}
+
+/* Bubble Emojis After Password */
+.bubble{
+  position:absolute;
+  font-size:22px;
+  animation:floatBubble 6s linear forwards;
+  pointer-events:none;
+  opacity:0.8;
+}
+
+@keyframes floatBubble{
+  0%{transform:translateY(100vh); opacity:0;}
+  20%{opacity:1;}
+  100%{transform:translateY(-10vh); opacity:0;}
+}
+
+/* Soft Fade */
+#softFade{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(255,192,203,0.35);
+  opacity:0;
+  pointer-events:none;
+  transition:2s ease;
+  z-index:50;
+}
+.showFade{opacity:1;}
+
+/* PASSWORD */
+#passwordScreen{
+  position:fixed;
+  width:100%;
+  height:100vh;
+  background:linear-gradient(45deg,#ff9ccf,#ffb6e6);
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  z-index:2000;
+}
+
+#passInput{
+  padding:12px;
+  border:none;
+  border-radius:20px;
+}
+
+#openBtn{
+  margin-top:10px;
+  padding:10px 20px;
+  border:none;
+  border-radius:20px;
+  background:#ff4da6;
+  color:white;
+}
+
+.shake{animation:shake 0.4s;}
+@keyframes shake{
+0%{transform:translateX(0);}
+25%{transform:translateX(-5px);}
+50%{transform:translateX(5px);}
+75%{transform:translateX(-5px);}
+100%{transform:translateX(0);}
+}
+
+/* ENVELOPE */
+.envelope{
+position:absolute;
+bottom:130px;
+left:50%;
+transform:translateX(-50%);
+width:260px;
+height:170px;
+background:#fff;
+border-radius:8px;
+box-shadow:0 0 20px #ff69b4,0 0 50px #ff1493;
+overflow:hidden;
+transition:0.8s;
+z-index:5;
+}
+
+.flap{
+position:absolute;
+width:100%;
+height:100%;
+background:#ff6fa5;
+clip-path:polygon(0 0,100% 0,50% 60%);
+transform-origin:top;
+transition:0.8s;
+}
+
+.openFlap{transform:rotateX(180deg);}
+.fadeEnvelope{opacity:0;transform:translate(-50%,-200px);}
+
+/* Arrow */
+#arrow{
+position:absolute;
+bottom:90px;
+left:50%;
+transform:translateX(-50%);
+font-size:30px;
+color:white;
+animation:arrowMove 1s infinite;
+}
+@keyframes arrowMove{
+0%{transform:translate(-50%,0);}
+50%{transform:translate(-50%,-10px);}
+100%{transform:translate(-50%,0);}
+}
+
+/* GIF */
+#gif{
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+width:260px;
+display:none;
+border-radius:20px;
+box-shadow:0 0 30px pink;
+animation:pulse 1.5s infinite;
+z-index:6;
+}
+@keyframes pulse{
+0%{transform:translate(-50%,-50%) scale(1);}
+50%{transform:translate(-50%,-50%) scale(1.05);}
+100%{transform:translate(-50%,-50%) scale(1);}
+}
+
+/* CLICK TEXT */
+#clickText{
+  position:absolute;
+  top:72%;
+  left:50%;
+  transform:translateX(-50%);
+  background:rgba(255,255,255,0.45);
+  padding:10px 20px;
+  border-radius:25px;
+  font-size:14px;
+  color:#ff4da6;
+  box-shadow:0 0 20px #ff69b4;
+  opacity:0;
+  animation:fadeInClick 2s ease forwards;
+  z-index:6;
+  display:none;
+}
+@keyframes fadeInClick{
+  from{opacity:0; transform:translate(-50%,10px);}
+  to{opacity:1; transform:translate(-50%,0);}
+}
+
+/* LETTER */
+#letter{
+position:absolute;
+top:45%;
+left:50%;
+transform:translate(-50%,-50%);
+width:90%;
+background:white;
+padding:20px;
+border-radius:20px;
+font-size:15px;
+color:#ff4da6;
+display:none;
+white-space:pre-line;
+max-height:60vh;
+overflow-y:auto;
+z-index:7;
+}
+
+/* Cursor */
+.cursor{
+  display:inline-block;
+  width:2px;
+  background:#ff4da6;
+  animation:blink 1s infinite;
+  margin-left:3px;
+}
+@keyframes blink{
+  0%{opacity:1;}
+  50%{opacity:0;}
+  100%{opacity:1;}
+}
+
+/* TEDDY */
+#cuteTeddy{
+  position:absolute;
+  top:78%;
+  left:50%;
+  transform:translateX(-50%) scale(0);
+  font-size:65px;
+  opacity:0;
+  transition:0.6s ease;
+  z-index:8;
+}
+.showTeddy{
+  transform:translateX(-50%) scale(1);
+  opacity:1;
+}
+
+/* Waving hand */
+.wave{
+  display:inline-block;
+  animation:waveHand 1s infinite;
+  transform-origin:70% 70%;
+}
+@keyframes waveHand{
+  0%{transform:rotate(0deg);}
+  25%{transform:rotate(20deg);}
+  50%{transform:rotate(-10deg);}
+  75%{transform:rotate(20deg);}
+  100%{transform:rotate(0deg);}
+}
+
+/* Goodbye text */
+#byeText{
+  position:absolute;
+  top:88%;
+  left:50%;
+  transform:translateX(-50%);
+  background:rgba(255,255,255,0.6);
+  padding:12px 20px;
+  border-radius:20px;
+  font-size:14px;
+  color:#ff4da6;
+  box-shadow:0 0 20px pink;
+  opacity:0;
+  transition:1.5s ease;
+  z-index:8;
+  white-space:pre-line;
+}
+.showBye{opacity:1;}
+</style>
+</head>
+
+<body>
+
+<div id="softFade"></div>
+
+<div id="passwordScreen">
+<h2>Enter Password 💖</h2>
+<input type="password" id="passInput">
+<button id="openBtn">Open My Heart 💕</button>
+</div>
+
+<div class="envelope" id="envelope">
+<div class="flap" id="flap"></div>
+</div>
+
+<div id="arrow">⬆</div>
+
+<img src="https://media.giphy.com/media/JwEVhaGCR6jTIqfSeI/giphy.gif" id="gif">
+<div id="clickText">Click on the gif to receive my letter ✉️</div>
+
+<div id="letter"></div>
+
+<div id="cuteTeddy">
+ 🧸 <span class="wave">👋</span>
+</div>
+
+<div id="byeText">
+Good bye 💗👋  
+Take care bubu 💓✨️  
+Have a grateful day 💖🤌🏻
+</div>
+
+<script>
+
+/* PASSWORD */
+var passInput=document.getElementById("passInput");
+
+document.getElementById("openBtn").onclick=function(){
+var value=passInput.value.toLowerCase().replace(/\s+/g,'');
+
+if(value==="akashjaan"){
+document.getElementById("passwordScreen").style.display="none";
+
+/* START BUBBLES */
+setInterval(()=>{
+let bubble=document.createElement("div");
+bubble.className="bubble";
+bubble.innerHTML=Math.random()>0.5?"💖":"✨";
+bubble.style.left=Math.random()*100+"vw";
+document.body.appendChild(bubble);
+setTimeout(()=>bubble.remove(),6000);
+},600);
+
+}else{
+passInput.classList.add("shake");
+setTimeout(()=>passInput.classList.remove("shake"),400);
+}
+};
+
+/* ENVELOPE */
+var startY=0;
+var envelope=document.getElementById("envelope");
+
+envelope.addEventListener("touchstart",e=>{
+startY=e.touches[0].clientY;
+});
+
+envelope.addEventListener("touchmove",e=>{
+if(startY-e.touches[0].clientY>80){
+document.getElementById("flap").classList.add("openFlap");
+document.getElementById("arrow").style.display="none";
+setTimeout(()=>{
+envelope.classList.add("fadeEnvelope");
+setTimeout(()=>{
+document.getElementById("gif").style.display="block";
+document.getElementById("clickText").style.display="block";
+},500);
+},600);
+}
+});
+
+/* GIF CLICK */
+document.getElementById("gif").onclick=function(){
+
+document.getElementById("clickText").style.display="none";
+this.style.display="none";
+
+var letter=document.getElementById("letter");
+letter.style.display="block";
+
+var text=`Hlwwww bubu...its me ur future hubby 🥹🤣
+dekh rha hu apka mood bada offf off saa lg rha h 🤧
+
+Fir aap baat to krogi nhi to soch rha tha ki kyu na apko special feel krwane ka ek naa kamyab kosis krdu , else ky pta he kamyab kosis v ho jaay....🙂‍↔️
+
+to representing a website makes by me....😂❤️🫶🏻
+a small part of my love from a small corner off my heart owned by u Cutiee 👀
+
+well alwys thinking.....🥹
+mtlb how this small cutie patootie ek chlti firti aafat ki pudiya uffff 🥹🫶🏻>>>
+
+uk what......may be I m mad but tmahre ye chote mote guse meko bohot cute lgte h 😂❤️
+
+idk mai tumko kaise hr baar happy krunga but I belive kr lunga or ise v better kr lunga 💖👀
+
+I can't w8 for 25th na thts y trying to make ur mood little bit light hence when we go we spend a sweet tym together...🫂💗
+
+Hehhe 
+
+Rate Krna kaisa laga apko ye website or 🤧👀
+apna pyaar show Krna meko dkhne ke baad okay 😃✨
+
+I loveeeeee youuuuuuu bubu 🫂❤️‍🩹
+kisssie for uu 💋😘`;
+
+var i=0;
+
+function typing(){
+if(i<text.length){
+letter.innerHTML=text.substring(0,i+1)+"<span class='cursor'></span>";
+i++;
+setTimeout(typing,40);
+}else{
+letter.innerHTML=text;
+
+document.getElementById("cuteTeddy").classList.add("showTeddy");
+
+setTimeout(()=>{
+document.getElementById("byeText").classList.add("showBye");
+document.getElementById("softFade").classList.add("showFade");
+},2000);
+}
+}
+
+typing();
+};
+
+</script>
+
+</body>
+</html>
